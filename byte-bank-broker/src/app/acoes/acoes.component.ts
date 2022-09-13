@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { merge, Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { AcoesService } from './acoes.service';
 import { Acoes } from './modelo/acoes.model';
 
@@ -12,7 +13,14 @@ import { Acoes } from './modelo/acoes.model';
 export class AcoesComponent {
   acoesInput = new FormControl();
 
-  acoes$: Observable<Acoes> = this.acoesService.getAcoes();
+  acoesInitial$: Observable<Acoes> = this.acoesService.getAcoes();
+  acoesSearch$: Observable<Acoes> = this.acoesInput.valueChanges.pipe(
+    switchMap((valor: string) => this.acoesService.getAcoes(valor))
+  );
+  acoes$: Observable<Acoes> = merge(
+    this.acoesInitial$,
+    this.acoesSearch$
+  );
 
   constructor(private acoesService: AcoesService) {}
 

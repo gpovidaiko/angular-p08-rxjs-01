@@ -23,3 +23,9 @@ Para alterar o fluxo extraindo apenas uma propriedade do dado trafegado foi most
 Falado sobre a importância de se desinscrever de _Observables_ através da estratégia de chamar o método _unsubscribe_ no ciclo de vida _OnDestroy_ do componente. Isso é necessário para evitar vazamento de memória de subscrições se mantendo ativas. No caso de _Observables_ retornados em requisições _HTTP_, o _HttpClient_ já trata de encerrar a subscrição à _Observables_ assim que a requisição é concluída, mas em outros casos esse tratamento se torna necessário.
 Utilizando o _pipe async_, que recebe um _Observable_ direto no _template_, também nos auxilia a tratar o ciclo de vida do _Observable_ conforme o do componente.
 Explicado sobre o gráfico de _Marbles_, utilizados para explicar e exemplificar operações reativas ao se trabalhar com _RxJS_ e _Observables_. 
+
+## 03. Operadores de fluxo
+
+Apresentado alguns operadores disponíveis para auxiliar na manipulação de fluxos de _Observable_.
+Implementada integração de consulta de ações conforme valor digitado em campo de pesquisa. Para isso foi realizada um alteração ao evento _valueChanges_ do campo, que também é um _Observable_. No fluxo desse, foi utilizado o operador _switchMap_, para transformar cada alteração de valor do campo de busca em uma consulta de ações.
+Para manter o funcionamento original de carregar a lista de ações ao iniciar o componente e juntar com o _Observable_ de consulta de ações por termo de busca, foi utilizado o operador _merge_. Com ele é possível unirmos dois fluxos à serem utilizados como o mesmo _Observable_.
