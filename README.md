@@ -29,3 +29,14 @@ Explicado sobre o gráfico de _Marbles_, utilizados para explicar e exemplificar
 Apresentado alguns operadores disponíveis para auxiliar na manipulação de fluxos de _Observable_.
 Implementada integração de consulta de ações conforme valor digitado em campo de pesquisa. Para isso foi realizada um alteração ao evento _valueChanges_ do campo, que também é um _Observable_. No fluxo desse, foi utilizado o operador _switchMap_, para transformar cada alteração de valor do campo de busca em uma consulta de ações.
 Para manter o funcionamento original de carregar a lista de ações ao iniciar o componente e juntar com o _Observable_ de consulta de ações por termo de busca, foi utilizado o operador _merge_. Com ele é possível unirmos dois fluxos à serem utilizados como o mesmo _Observable_.
+
+## 04. Operadore de filtro
+
+Apresentado alguns operadores disponíveis para filtragem de fluxos de _Observable_.
+Para filtragens conforme a veracidade de uma expressão booleana, podesse utilizar o operador _filter_. No projeto, foi utilizado executar a consulta de ações por busca quando o termo de busca fosse vazio ou maior que três caracteres.
+Com o operador _debounceTime_ foi possível definir um tempo de espera entre o momento da última alteração de valor emitida e a execução da busca, evitando emissões descartáveis enquanto há alterações contínuas de valor no campo de busca.
+Para evitar emissões com valores de busca iguais ao último consultado, podesse utilizar o operador _distinctUntilChanged_.
+
+## I. RxJS - Documentação
+
+https://rxjs-dev.firebaseapp.com/guide/overview

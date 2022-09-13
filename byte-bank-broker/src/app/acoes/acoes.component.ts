@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { merge, Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
 import { AcoesService } from './acoes.service';
 import { Acoes } from './modelo/acoes.model';
 
+const TEMPO_ESPERA_BUSCA = 300;
 @Component({
   selector: 'app-acoes',
   templateUrl: './acoes.component.html',
@@ -15,6 +16,9 @@ export class AcoesComponent {
 
   acoesInitial$: Observable<Acoes> = this.acoesService.getAcoes();
   acoesSearch$: Observable<Acoes> = this.acoesInput.valueChanges.pipe(
+    debounceTime(TEMPO_ESPERA_BUSCA),
+    filter((valor: string) => valor.length >= 3 || !valor.length),
+    distinctUntilChanged(),
     switchMap((valor: string) => this.acoesService.getAcoes(valor))
   );
   acoes$: Observable<Acoes> = merge(
