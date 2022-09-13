@@ -13,3 +13,13 @@ Falado sobre o conceito de _Observable_, objeto retornado ao realizar uma requis
 |--|--|--|
 | **imperativo** | function | iterator |
 | **reativo** | promise | observable |
+
+## 02. Operadores de transformação
+
+Apresentados alguns operadores disponíveis para utilizar em fluxos de _Observables_, funções passadas como parâmetro para a função _pipe_.
+Com o operador _map_ é possível manipular o dado trafegado pelo fluxo. Foi utilizado para ordenar a lista de ações pelo código.
+Mostrado o operador _tap_, utilizado como forma de _debug_, que permite manipular o dado sem altera-lo em relação a sua trafegação pelo fluxo.
+Para alterar o fluxo extraindo apenas uma propriedade do dado trafegado foi mostrado o operador _pluck_. Com ele é possível substituir usos de _map_ criados apenas para obter uma determinada propriedade do dado de entrada, passando a usa-lá na saída. Foi utilizado para extrair a lista de ações do retornor da _API_.
+Falado sobre a importância de se desinscrever de _Observables_ através da estratégia de chamar o método _unsubscribe_ no ciclo de vida _OnDestroy_ do componente. Isso é necessário para evitar vazamento de memória de subscrições se mantendo ativas. No caso de _Observables_ retornados em requisições _HTTP_, o _HttpClient_ já trata de encerrar a subscrição à _Observables_ assim que a requisição é concluída, mas em outros casos esse tratamento se torna necessário.
+Utilizando o _pipe async_, que recebe um _Observable_ direto no _template_, também nos auxilia a tratar o ciclo de vida do _Observable_ conforme o do componente.
+Explicado sobre o gráfico de _Marbles_, utilizados para explicar e exemplificar operações reativas ao se trabalhar com _RxJS_ e _Observables_. 
